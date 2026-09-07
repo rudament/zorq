@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Zorq — The Meme Has Landed on ARC</title>
+  <desc id="desc">Zorq community-oriented meme token on ARC.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#08090d"/><stop offset=".58" stop-color="#0d1521"/><stop offset="1" stop-color="#17112d"/></linearGradient>
+    <radialGradient id="glow" cx="78%" cy="42%" r="45%"><stop offset="0" stop-color="#4f7cff" stop-opacity=".42"/><stop offset=".55" stop-color="#7de7ff" stop-opacity=".12"/><stop offset="1" stop-color="#7de7ff" stop-opacity="0"/></radialGradient>
+    <pattern id="grid" width="42" height="42" patternUnits="userSpaceOnUse"><path d="M42 0H0V42" fill="none" stroke="#7de7ff" stroke-opacity=".08"/></pattern>
+    <filter id="soft"><feGaussianBlur stdDeviation="18"/></filter>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/><rect width="1200" height="630" fill="url(#grid)"/><rect width="1200" height="630" fill="url(#glow)"/>
+  <circle cx="930" cy="310" r="165" fill="none" stroke="#7de7ff" stroke-opacity=".24"/><circle cx="930" cy="310" r="118" fill="none" stroke="#a58bff" stroke-opacity=".35"/><circle cx="930" cy="310" r="70" fill="#4f7cff" fill-opacity=".18" filter="url(#soft)"/>
+  <g transform="translate(930 310) rotate(-28)"><rect x="-57" y="-57" width="114" height="114" rx="27" fill="#162a52" stroke="#7de7ff" stroke-width="3"/><path d="M-18-6c8-27 28-32 43-7-9 16-20 27-38 33-10-8-11-16-5-26Z" fill="#7de7ff"/><circle cx="5" cy="-9" r="7" fill="#08090d"/><path d="M-20 32c15 10 28 10 42 0" fill="none" stroke="#d4ff68" stroke-width="3" stroke-linecap="round"/></g>
+  <text x="76" y="126" fill="#7de7ff" font-family="monospace" font-size="18" letter-spacing="5">ARC / MEME TOKEN</text><text x="70" y="270" fill="#f4f6fb" font-family="Arial, sans-serif" font-size="116" font-weight="800" letter-spacing="-7">ZORQ.</text><text x="78" y="358" fill="#f4f6fb" font-family="Arial, sans-serif" font-size="54" font-weight="700" letter-spacing="-2">THE MEME HAS LANDED.</text><text x="80" y="430" fill="#9ba7ba" font-family="Arial, sans-serif" font-size="23">A community-oriented meme token built on ARC.</text><text x="80" y="542" fill="#7de7ff" font-family="monospace" font-size="17" letter-spacing="4">ZORQ_ON_ARC</text>
+</svg>

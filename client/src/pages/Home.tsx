@@ -72,7 +72,7 @@ const faqItems = [
   {
     question: "Where is the official contract address?",
     answer:
-      "The contract address is currently TBA. Only use an address published through an official Zorq channel.",
+      "The verified Zorq contract is shown on this website. Always confirm the full address through an official Zorq channel before using it.",
   },
   {
     question: "Where can I find official links?",
