@@ -463,23 +463,31 @@ function Home() {
               </div>
               <div className="tokenomics-fields">
                 {[
-                  "Total supply",
-                  "Liquidity",
-                  "Allocation",
-                  "Contract address",
-                ].map(label => (
+                  {
+                    label: "Total supply",
+                    value: "1,000,000,000",
+                    note: "1 BILLION ZORQ",
+                  },
+                  {
+                    label: "Liquidity",
+                    value: "FULLY LOCKED",
+                    note: "Liquidity is fully locked",
+                  },
+                  {
+                    label: "Allocation",
+                    value: "100% FOR COMMUNITY",
+                    note: "Community oriented distribution",
+                  },
+                  {
+                    label: "Contract address",
+                    value: SHORT_ZORQ_CONTRACT,
+                    note: "Verified ARC contract",
+                  },
+                ].map(({ label, value, note }) => (
                   <div className="token-field" key={label}>
                     <span>{label}</span>
-                    <strong>
-                      {label === "Contract address"
-                        ? SHORT_ZORQ_CONTRACT
-                        : "TBA"}
-                    </strong>
-                    <small>
-                      {label === "Contract address"
-                        ? "Verified ARC contract"
-                        : "Owner to provide verified value"}
-                    </small>
+                    <strong>{value}</strong>
+                    <small>{note}</small>
                   </div>
                 ))}
               </div>
