@@ -14,7 +14,11 @@ import {
   type PointerEvent,
   type ReactNode,
 } from "react";
-import { ZORQ_CONTRACT_ADDRESS, ZORQ_DONATION_ADDRESS } from "@shared/const";
+import {
+  ZORQ_CONTRACT_ADDRESS,
+  ZORQ_DONATION_ADDRESS,
+  ZORQ_X_URL,
+} from "@shared/const";
 
 const SHORT_ZORQ_CONTRACT = `${ZORQ_CONTRACT_ADDRESS.slice(0, 6)}...${ZORQ_CONTRACT_ADDRESS.slice(-4)}`;
 const SHORT_ZORQ_DONATION = `${ZORQ_DONATION_ADDRESS.slice(0, 6)}...${ZORQ_DONATION_ADDRESS.slice(-5)}`;
@@ -572,14 +576,20 @@ function Home() {
                 (label, index) => (
                   <a
                     className="community-card"
-                    href="#community"
+                    href={label === "X" ? ZORQ_X_URL : "#community"}
+                    target={label === "X" ? "_blank" : undefined}
+                    rel={label === "X" ? "noreferrer" : undefined}
                     key={label}
-                    onClick={event => event.preventDefault()}
+                    onClick={event => {
+                      if (label !== "X") event.preventDefault();
+                    }}
                   >
                     <span className="community-card__index">0{index + 1}</span>
                     <span className="community-card__label">
                       {label}
-                      <small>LINK TBA</small>
+                      <small>
+                        {label === "X" ? "OFFICIAL PROFILE" : "LINK TBA"}
+                      </small>
                     </span>
                     <MoveUpRight size={17} />
                   </a>
@@ -669,7 +679,9 @@ function Home() {
             <span>CONNECT</span>
             <a href="#community">Discord / TBA</a>
             <a href="#community">Telegram / TBA</a>
-            <a href="#community">X / TBA</a>
+            <a href={ZORQ_X_URL} target="_blank" rel="noreferrer">
+              X / ZORQ_ON_ARC
+            </a>
             <a href="#community">Community / TBA</a>
           </div>
           <div className="site-footer__status">
