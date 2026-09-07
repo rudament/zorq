@@ -3,6 +3,7 @@ import {
   ArrowUpRight,
   Menu,
   MoveUpRight,
+  Wallet,
   X,
 } from "lucide-react";
 import {
@@ -13,14 +14,16 @@ import {
   type PointerEvent,
   type ReactNode,
 } from "react";
-import { ZORQ_CONTRACT_ADDRESS } from "@shared/const";
+import { ZORQ_CONTRACT_ADDRESS, ZORQ_DONATION_ADDRESS } from "@shared/const";
 
 const SHORT_ZORQ_CONTRACT = `${ZORQ_CONTRACT_ADDRESS.slice(0, 6)}...${ZORQ_CONTRACT_ADDRESS.slice(-4)}`;
+const SHORT_ZORQ_DONATION = `${ZORQ_DONATION_ADDRESS.slice(0, 8)}...${ZORQ_DONATION_ADDRESS.slice(-4)}`;
 
 const navItems = [
   { label: "About", href: "#about" },
   { label: "Why Zorq", href: "#why-zorq" },
   { label: "Tokenomics", href: "#tokenomics" },
+  { label: "Support the dev", href: "#support" },
   { label: "Community", href: "#community" },
 ];
 
@@ -124,6 +127,7 @@ function Home() {
   const [pageReady, setPageReady] = useState(false);
   const [openFaq, setOpenFaq] = useState(0);
   const [contractCopied, setContractCopied] = useState(false);
+  const [donationCopied, setDonationCopied] = useState(false);
   const pointerFrame = useRef<number | null>(null);
 
   useEffect(() => {
@@ -179,6 +183,12 @@ function Home() {
     await navigator.clipboard.writeText(ZORQ_CONTRACT_ADDRESS);
     setContractCopied(true);
     window.setTimeout(() => setContractCopied(false), 1600);
+  };
+  const copyDonationAddress = async () => {
+    if (!navigator.clipboard) return;
+    await navigator.clipboard.writeText(ZORQ_DONATION_ADDRESS);
+    setDonationCopied(true);
+    window.setTimeout(() => setDonationCopied(false), 1600);
   };
   const handleHeroPointerMove = (event: PointerEvent<HTMLElement>) => {
     const target = event.currentTarget;
@@ -499,6 +509,46 @@ function Home() {
                 <span className="arc-visual__arc arc-visual__arc--two" />
                 <div className="arc-visual__node">A</div>
                 <span className="arc-visual__label">ZORQ / ARC</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="donation-section section-shell" id="support">
+          <div className="container">
+            <div className="donation-panel" data-reveal>
+              <div className="donation-copy">
+                <p className="eyebrow">
+                  <span className="eyebrow__dot" />
+                  DEVELOPER SUPPORT / EVM
+                </p>
+                <h2>HELP THE POOR DEV</h2>
+                <p>Support the dev and help keep Zorq building.</p>
+              </div>
+              <div className="donation-visual" aria-hidden="true">
+                <div className="donation-visual__halo" />
+                <div className="donation-visual__wallet">
+                  <Wallet size={23} strokeWidth={1.5} />
+                  <span />
+                </div>
+                <small>EVM / OPEN SIGNAL</small>
+              </div>
+              <div className="donation-address">
+                <span className="donation-address__label">
+                  DONATION ADDRESS
+                </span>
+                <strong>{SHORT_ZORQ_DONATION}</strong>
+                <button
+                  className="button button--secondary donation-address__button"
+                  type="button"
+                  onClick={copyDonationAddress}
+                  aria-label="Copy full EVM donation address"
+                >
+                  {donationCopied ? "Copied ✓" : "Copy Address"}
+                </button>
+                <small>
+                  Send only on the EVM network. No wallet connection required.
+                </small>
               </div>
             </div>
           </div>
