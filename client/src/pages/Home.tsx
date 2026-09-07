@@ -13,6 +13,9 @@ import {
   type PointerEvent,
   type ReactNode,
 } from "react";
+import { ZORQ_CONTRACT_ADDRESS } from "@shared/const";
+
+const SHORT_ZORQ_CONTRACT = `${ZORQ_CONTRACT_ADDRESS.slice(0, 6)}...${ZORQ_CONTRACT_ADDRESS.slice(-4)}`;
 
 const navItems = [
   { label: "About", href: "#about" },
@@ -120,6 +123,7 @@ function Home() {
   const [scrolled, setScrolled] = useState(false);
   const [pageReady, setPageReady] = useState(false);
   const [openFaq, setOpenFaq] = useState(0);
+  const [contractCopied, setContractCopied] = useState(false);
   const pointerFrame = useRef<number | null>(null);
 
   useEffect(() => {
@@ -170,6 +174,12 @@ function Home() {
   }, []);
 
   const closeMenu = () => setMenuOpen(false);
+  const copyContractAddress = async () => {
+    if (!navigator.clipboard) return;
+    await navigator.clipboard.writeText(ZORQ_CONTRACT_ADDRESS);
+    setContractCopied(true);
+    window.setTimeout(() => setContractCopied(false), 1600);
+  };
   const handleHeroPointerMove = (event: PointerEvent<HTMLElement>) => {
     const target = event.currentTarget;
     const rect = target.getBoundingClientRect();
@@ -278,23 +288,23 @@ function Home() {
               <div className="hero-utility-row">
                 <div
                   className="contract-control"
-                  aria-label="Contract address placeholder"
+                  aria-label="Zorq contract address"
                 >
                   <div className="contract-control__label">
                     <span className="contract-control__dot" />
                     CONTRACT ADDRESS
                   </div>
                   <div className="contract-control__value">
-                    TBA — address pending
+                    {SHORT_ZORQ_CONTRACT}
                   </div>
                   <button
                     className="contract-control__copy"
                     type="button"
-                    disabled
-                    aria-label="Copy contract address placeholder"
-                    title="Contract address pending"
+                    onClick={copyContractAddress}
+                    aria-label="Copy full Zorq contract address"
+                    title="Copy full contract address"
                   >
-                    COPY
+                    {contractCopied ? "COPIED" : "COPY"}
                   </button>
                 </div>
                 <div className="arc-badge" aria-label="ARC blockchain badge">
@@ -446,8 +456,16 @@ function Home() {
                 ].map(label => (
                   <div className="token-field" key={label}>
                     <span>{label}</span>
-                    <strong>TBA</strong>
-                    <small>Owner to provide verified value</small>
+                    <strong>
+                      {label === "Contract address"
+                        ? SHORT_ZORQ_CONTRACT
+                        : "TBA"}
+                    </strong>
+                    <small>
+                      {label === "Contract address"
+                        ? "Verified ARC contract"
+                        : "Owner to provide verified value"}
+                    </small>
                   </div>
                 ))}
               </div>
@@ -606,7 +624,15 @@ function Home() {
           </div>
           <div className="site-footer__status">
             <span>CONTRACT</span>
-            <strong>TBA — address pending</strong>
+            <strong>{SHORT_ZORQ_CONTRACT}</strong>
+            <button
+              className="footer-contract-copy"
+              type="button"
+              onClick={copyContractAddress}
+              aria-label="Copy full Zorq contract address"
+            >
+              {contractCopied ? "COPIED" : "COPY FULL ADDRESS"}
+            </button>
             <small>Crypto assets are volatile. Do your own research.</small>
           </div>
         </div>
