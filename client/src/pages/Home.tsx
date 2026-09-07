@@ -17,7 +17,7 @@ import {
 import { ZORQ_CONTRACT_ADDRESS, ZORQ_DONATION_ADDRESS } from "@shared/const";
 
 const SHORT_ZORQ_CONTRACT = `${ZORQ_CONTRACT_ADDRESS.slice(0, 6)}...${ZORQ_CONTRACT_ADDRESS.slice(-4)}`;
-const SHORT_ZORQ_DONATION = `${ZORQ_DONATION_ADDRESS.slice(0, 8)}...${ZORQ_DONATION_ADDRESS.slice(-4)}`;
+const SHORT_ZORQ_DONATION = `${ZORQ_DONATION_ADDRESS.slice(0, 6)}...${ZORQ_DONATION_ADDRESS.slice(-5)}`;
 
 const navItems = [
   { label: "About", href: "#about" },
