@@ -75,6 +75,7 @@ section[id] {
 body {
   margin: 0;
   min-width: 320px;
+  overflow-x: hidden;
   background: var(--ink-950);
   color: var(--mist-100);
   font-family: var(--font-sans);
@@ -2202,6 +2203,37 @@ button {
   .hero-section {
     padding-top: 118px;
   }
+  .hero-actions {
+    gap: 8px;
+  }
+  .hero-utility-row {
+    width: 100%;
+    max-width: none;
+  }
+  .contract-control {
+    width: 100%;
+    min-width: 0;
+  }
+  .hero-description {
+    line-height: 1.65;
+  }
+  .token-field strong {
+    font-size: clamp(1.5rem, 7vw, 1.75rem);
+    line-height: 1.05;
+    overflow-wrap: anywhere;
+  }
+  .donation-panel {
+    padding: 1.15rem;
+  }
+  .donation-address strong {
+    font-size: clamp(0.8rem, 4.2vw, 0.875rem);
+  }
+  .site-footer__nav a,
+  .footer-contract-copy {
+    min-height: 26px;
+    display: flex;
+    align-items: center;
+  }
   .hero-copy h1 {
     font-size: clamp(3.2rem, 15vw, 5.4rem);
   }
@@ -2327,7 +2359,7 @@ button {
     min-height: 300px;
   }
   .arc-visual__field {
-    width: 300px;
+    width: min(100%, 300px);
   }
   .faq-grid {
     gap: 2.8rem;
@@ -2364,6 +2396,33 @@ button {
   }
   .hero-visual__ticks {
     opacity: 0.6;
+  }
+}
+
+@media (max-width: 360px) {
+  .container {
+    padding-inline: 1rem;
+  }
+  .hero-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .hero-actions .button {
+    width: 100%;
+    justify-content: space-between;
+  }
+  .tokenomics-panel {
+    padding: 1rem;
+  }
+  .tokenomics-ring {
+    width: 200px;
+  }
+  .donation-copy h2 {
+    font-size: clamp(2rem, 11vw, 3.8rem);
+  }
+  .site-footer__inner {
+    grid-template-columns: 1fr;
+    gap: 2rem;
   }
 }
 
