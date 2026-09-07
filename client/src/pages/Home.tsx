@@ -1,5 +1,5 @@
 import { ArrowDownRight, ArrowUpRight, Menu, MoveUpRight, X } from "lucide-react";
-import { useEffect, useState, type CSSProperties, type PointerEvent, type ReactNode } from "react";
+import { useEffect, useRef, useState, type CSSProperties, type PointerEvent, type ReactNode } from "react";
 
 const navItems = [
   { label: "About", href: "#about" },
@@ -77,19 +77,26 @@ function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [pageReady, setPageReady] = useState(false);
-  const [scrollY, setScrollY] = useState(0);
-  const [pointer, setPointer] = useState({ x: 0, y: 0 });
-  const [copied, setCopied] = useState(false);
   const [openFaq, setOpenFaq] = useState(0);
+  const pointerFrame = useRef<number | null>(null);
 
   useEffect(() => {
     const frame = window.requestAnimationFrame(() => setPageReady(true));
     const onScroll = () => {
       setScrolled(window.scrollY > 24);
-      setScrollY(window.scrollY);
+      document.documentElement.style.setProperty("--zorq-scroll-shift", `${Math.min(window.scrollY * 0.035, 16)}px`);
     };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
+
+    if (typeof IntersectionObserver === "undefined") {
+      document.querySelectorAll("[data-reveal]").forEach((element) => element.setAttribute("data-visible", "true"));
+      return () => {
+        window.cancelAnimationFrame(frame);
+        window.removeEventListener("scroll", onScroll);
+        document.documentElement.style.removeProperty("--zorq-scroll-shift");
+      };
+    }
 
     const revealObserver = new IntersectionObserver(
       (entries) => {
@@ -108,6 +115,7 @@ function Home() {
     return () => {
       window.cancelAnimationFrame(frame);
       window.removeEventListener("scroll", onScroll);
+      document.documentElement.style.removeProperty("--zorq-scroll-shift");
       revealObserver.disconnect();
     };
   }, []);
@@ -115,15 +123,19 @@ function Home() {
   const closeMenu = () => setMenuOpen(false);
   const handleHeroPointerMove = (event: PointerEvent<HTMLElement>) => {
     const rect = event.currentTarget.getBoundingClientRect();
-    setPointer({ x: ((event.clientX - rect.left) / rect.width - 0.5) * 2, y: ((event.clientY - rect.top) / rect.height - 0.5) * 2 });
+    const x = ((event.clientX - rect.left) / rect.width - 0.5) * 14;
+    const y = ((event.clientY - rect.top) / rect.height - 0.5) * 14;
+    if (pointerFrame.current !== null) window.cancelAnimationFrame(pointerFrame.current);
+    pointerFrame.current = window.requestAnimationFrame(() => {
+      event.currentTarget.style.setProperty("--zorq-pointer-x", `${x}px`);
+      event.currentTarget.style.setProperty("--zorq-pointer-y", `${y}px`);
+      pointerFrame.current = null;
+    });
   };
-  const handleHeroPointerLeave = () => setPointer({ x: 0, y: 0 });
-  const copyContract = async () => {
-    if (typeof navigator !== "undefined" && navigator.clipboard) {
-      await navigator.clipboard.writeText("Contract address pending");
-      setCopied(true);
-      window.setTimeout(() => setCopied(false), 1600);
-    }
+  const handleHeroPointerLeave = (event: PointerEvent<HTMLElement>) => {
+    if (pointerFrame.current !== null) window.cancelAnimationFrame(pointerFrame.current);
+    event.currentTarget.style.setProperty("--zorq-pointer-x", "0px");
+    event.currentTarget.style.setProperty("--zorq-pointer-y", "0px");
   };
 
   return (
@@ -170,7 +182,7 @@ function Home() {
                 <div className="contract-control" aria-label="Contract address placeholder">
                   <div className="contract-control__label"><span className="contract-control__dot" />CONTRACT ADDRESS</div>
                   <div className="contract-control__value">TBA — address pending</div>
-                  <button className="contract-control__copy" type="button" onClick={copyContract} disabled aria-label="Copy contract address placeholder" title="Contract address pending">{copied ? "COPIED" : "COPY"}</button>
+                  <button className="contract-control__copy" type="button" disabled aria-label="Copy contract address placeholder" title="Contract address pending">COPY</button>
                 </div>
                 <div className="arc-badge" aria-label="ARC blockchain badge"><span className="arc-badge__mark">A</span><span><strong>ARC</strong><small>BLOCKCHAIN</small></span></div>
               </div>
@@ -181,7 +193,7 @@ function Home() {
               </div>
             </div>
 
-            <div className="hero-visual" data-reveal data-visible="true" aria-label="Zorq orbital signal visual" style={{ "--pointer-x": `${pointer.x * 7}px`, "--pointer-y": `${pointer.y * 7 - Math.min(scrollY * 0.035, 16)}px` } as CSSProperties}>
+            <div className="hero-visual" data-reveal data-visible="true" aria-label="Zorq orbital signal visual">
               <div className="hero-visual__halo" />
               <div className="hero-visual__orbit hero-visual__orbit--outer" />
               <div className="hero-visual__orbit hero-visual__orbit--inner" />
