@@ -122,13 +122,14 @@ function Home() {
 
   const closeMenu = () => setMenuOpen(false);
   const handleHeroPointerMove = (event: PointerEvent<HTMLElement>) => {
-    const rect = event.currentTarget.getBoundingClientRect();
+    const target = event.currentTarget;
+    const rect = target.getBoundingClientRect();
     const x = ((event.clientX - rect.left) / rect.width - 0.5) * 14;
     const y = ((event.clientY - rect.top) / rect.height - 0.5) * 14;
     if (pointerFrame.current !== null) window.cancelAnimationFrame(pointerFrame.current);
     pointerFrame.current = window.requestAnimationFrame(() => {
-      event.currentTarget.style.setProperty("--zorq-pointer-x", `${x}px`);
-      event.currentTarget.style.setProperty("--zorq-pointer-y", `${y}px`);
+      target.style.setProperty("--zorq-pointer-x", `${x}px`);
+      target.style.setProperty("--zorq-pointer-y", `${y}px`);
       pointerFrame.current = null;
     });
   };
