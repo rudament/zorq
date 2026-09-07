@@ -5,7 +5,6 @@ const navItems = [
   { label: "About", href: "#about" },
   { label: "Why Zorq", href: "#why-zorq" },
   { label: "Tokenomics", href: "#tokenomics" },
-  { label: "Roadmap", href: "#roadmap" },
   { label: "Community", href: "#community" },
 ];
 
@@ -16,20 +15,13 @@ const whyCards = [
   { index: "04", title: "Room to evolve", copy: "A clear foundation that leaves space for the community to shape what comes next.", accent: "violet" },
 ];
 
-const roadmapPhases = [
-  { phase: "01", title: "Signal detected", copy: "Brand and launch foundation.", status: "FOUNDATION" },
-  { phase: "02", title: "First transmission", copy: "Community opening and initial launch materials.", status: "TBA" },
-  { phase: "03", title: "Orbit expansion", copy: "Owner-defined ecosystem and community initiatives.", status: "TBA" },
-  { phase: "04", title: "Next coordinates", copy: "Future plans shaped with the people in orbit.", status: "TBA" },
-];
-
 const faqItems = [
   { question: "What is Zorq?", answer: "Zorq is a meme token project with a premium visual identity and a community-first launch surface." },
   { question: "Which blockchain is Zorq on?", answer: "Zorq is being built on ARC. Official technical and transaction details will be published when verified." },
   { question: "Where is the official contract address?", answer: "The contract address is currently TBA. Only use an address published through an official Zorq channel." },
   { question: "Where can I find official links?", answer: "Verified community links will be added here once they are provided by the project owner." },
   { question: "Is Zorq financial advice?", answer: "No. Meme tokens are high-risk and volatile. Do your own research and never commit more than you can afford to lose." },
-  { question: "How will updates be shared?", answer: "Roadmap and project updates will be published through verified Zorq community channels." },
+  { question: "How will updates be shared?", answer: "Project updates will be published through verified Zorq community channels." },
 ];
 
 function ZorqMark({ compact = false }: { compact?: boolean }) {
@@ -152,11 +144,11 @@ function Home() {
           <div className="container hero-grid">
             <div className="hero-copy" data-reveal data-visible="true">
               <p className="eyebrow hero-eyebrow"><span className="eyebrow__dot" />ARC / MEME TOKEN <span className="eyebrow__line" /> ZORQ SIGNAL</p>
-              <h1>ZORQ<br /><span>IS HERE<span className="hero-period">.</span></span></h1>
-              <p className="hero-description">A premium visual system for a signal with somewhere to go. Dark, deliberate, and ready for the ARC orbit.</p>
+              <h1>ZORQ<span className="hero-period">.</span><span>THE MEME<br className="hero-title-break" /> HAS LANDED<span className="hero-period">.</span></span></h1>
+              <p className="hero-description">A premium meme token on ARC. Clean enough to remember, playful enough to make noise.</p>
               <div className="hero-actions">
-                <a className="button button--primary" href="#about">Explore Zorq <ArrowDownRight size={17} /></a>
-                <a className="button button--secondary" href="#arc">See the orbit <ArrowUpRight size={17} /></a>
+                <a className="button button--primary" href="#tokenomics">Get Zorq <ArrowDownRight size={17} /></a>
+                <a className="button button--secondary" href="#community">Join the community <ArrowUpRight size={17} /></a>
               </div>
               <div className="hero-utility-row">
                 <div className="contract-control" aria-label="Contract address placeholder">
@@ -199,7 +191,7 @@ function Home() {
 
         <section className="intro-section section-shell" id="about">
           <div className="container intro-grid">
-            <SectionHeading eyebrow="00 / Meet Zorq" title={<>A meme token<br /><em>with a signal.</em></>} copy="Zorq is a playful, confident presence entering the ARC orbit. A short name, a strong mark, and space for a community to make it their own." />
+            <SectionHeading eyebrow="00 / What is Zorq?" title={<>A meme token<br /><em>with a signal.</em></>} copy="Zorq is a playful, confident presence entering the ARC orbit. A short name, a strong mark, and space for a community to make it their own." />
             <div className="intro-statement" data-reveal><span className="intro-statement__quote">“</span><p>Zorq is here.<br /><em>Keep your frequency open.</em></p><span className="intro-statement__line" /></div>
           </div>
         </section>
@@ -225,34 +217,27 @@ function Home() {
           </div>
         </section>
 
-        <section className="roadmap-section section-shell" id="roadmap">
-          <div className="container">
-            <SectionHeading eyebrow="03 / Roadmap" title={<>Coordinates,<br /><em>not promises.</em></>} copy="A simple set of phases for the signal to move through. Dates and statuses stay pending until the project confirms them." />
-            <div className="roadmap-list" data-reveal>{roadmapPhases.map((item) => <article className="roadmap-item" key={item.phase}><div className="roadmap-item__index">{item.phase}</div><div className="roadmap-item__marker"><span /></div><div className="roadmap-item__copy"><div><h3>{item.title}</h3><span className="status-chip status-chip--small"><span className="status-chip__dot" />{item.status}</span></div><p>{item.copy}</p></div></article>)}</div>
-          </div>
-        </section>
-
         <section className="arc-section section-shell" id="arc">
-          <div className="container arc-grid"><div><SectionHeading eyebrow="04 / ARC" title={<>In the<br /><em>ARC orbit.</em></>} copy="Zorq is built on ARC. Official network guidance, explorer links, and technical details will be added here when verified." /><div className="arc-links" data-reveal><span>NETWORK</span><strong>ARC</strong><span className="arc-links__pending">DETAILS PENDING</span></div></div><div className="arc-visual" data-reveal><div className="arc-visual__field"><span className="arc-visual__arc arc-visual__arc--one" /><span className="arc-visual__arc arc-visual__arc--two" /><div className="arc-visual__node">A</div><span className="arc-visual__label">ZORQ / ARC</span></div></div></div>
+          <div className="container arc-grid"><div><SectionHeading eyebrow="03 / ARC" title={<>In the<br /><em>ARC orbit.</em></>} copy="Zorq is built on ARC. Official network guidance, explorer links, and technical details will be added here when verified." /><div className="arc-links" data-reveal><span>NETWORK</span><strong>ARC</strong><span className="arc-links__pending">DETAILS PENDING</span></div></div><div className="arc-visual" data-reveal><div className="arc-visual__field"><span className="arc-visual__arc arc-visual__arc--one" /><span className="arc-visual__arc arc-visual__arc--two" /><div className="arc-visual__node">A</div><span className="arc-visual__label">ZORQ / ARC</span></div></div></div>
         </section>
 
         <section className="community-section section-shell" id="community">
-          <div className="container"><SectionHeading eyebrow="05 / Community" title={<>Find the signal.<br /><em>Add your frequency.</em></>} copy="Official social channels will appear here once they are verified. No placeholder links masquerading as official destinations." /><div className="community-grid" data-reveal>{["Discord", "Telegram", "X", "Community hub"].map((label, index) => <a className="community-card" href="#community" key={label} onClick={(event) => event.preventDefault()}><span className="community-card__index">0{index + 1}</span><span className="community-card__label">{label}<small>LINK TBA</small></span><MoveUpRight size={17} /></a>)}</div></div>
+          <div className="container"><SectionHeading eyebrow="04 / Community" title={<>Find the signal.<br /><em>Add your frequency.</em></>} copy="Official social channels will appear here once they are verified. No placeholder links masquerading as official destinations." /><div className="community-grid" data-reveal>{["Discord", "Telegram", "X", "Community hub"].map((label, index) => <a className="community-card" href="#community" key={label} onClick={(event) => event.preventDefault()}><span className="community-card__index">0{index + 1}</span><span className="community-card__label">{label}<small>LINK TBA</small></span><MoveUpRight size={17} /></a>)}</div></div>
         </section>
 
         <section className="faq-section section-shell" id="faq">
-          <div className="container faq-grid"><SectionHeading eyebrow="06 / FAQ" title={<>Keep it<br /><em>clear.</em></>} copy="The useful answers, without the launch theater." /><div className="faq-list" data-reveal>{faqItems.map((item, index) => <div className={openFaq === index ? "faq-item faq-item--open" : "faq-item"} key={item.question}><button type="button" onClick={() => setOpenFaq(openFaq === index ? -1 : index)} aria-expanded={openFaq === index}><span>{item.question}</span><span className="faq-item__plus">+</span></button><div className="faq-item__answer"><p>{item.answer}</p></div></div>)}</div></div>
+          <div className="container faq-grid"><SectionHeading eyebrow="05 / FAQ" title={<>Keep it<br /><em>clear.</em></>} copy="The useful answers, without the launch theater." /><div className="faq-list" data-reveal>{faqItems.map((item, index) => <div className={openFaq === index ? "faq-item faq-item--open" : "faq-item"} key={item.question}><button type="button" onClick={() => setOpenFaq(openFaq === index ? -1 : index)} aria-expanded={openFaq === index}><span>{item.question}</span><span className="faq-item__plus">+</span></button><div className="faq-item__answer"><p>{item.answer}</p></div></div>)}</div></div>
         </section>
 
         <section className="closing-section section-shell" id="join">
           <div className="container closing-card" data-reveal>
-            <div><p className="eyebrow"><span className="eyebrow__dot" />THE SIGNAL IS OPEN</p><h2>Zorq is here.<br /><em>Join the orbit.</em></h2></div>
+            <div><p className="eyebrow"><span className="eyebrow__dot" />THE SIGNAL IS OPEN</p><h2>ZORQ.<br /><em>THE MEME HAS LANDED.</em></h2></div>
             <a className="button button--primary" href="#community">Find the community <ArrowUpRight size={17} /></a>
           </div>
         </section>
       </main>
 
-      <footer className="site-footer"><div className="container site-footer__inner"><div className="site-footer__brand"><a className="brand-lockup" href="#top"><ZorqMark compact /><span className="brand-lockup__word">ZORQ<span className="brand-lockup__dot">.</span></span></a><p>A playful signal entering the ARC orbit.</p></div><div className="site-footer__nav"><span>NAVIGATE</span><a href="#about">About</a><a href="#tokenomics">Tokenomics</a><a href="#roadmap">Roadmap</a><a href="#faq">FAQ</a></div><div className="site-footer__nav"><span>CONNECT</span><a href="#community">Discord / TBA</a><a href="#community">Telegram / TBA</a><a href="#community">X / TBA</a><a href="#arc">ARC reference</a></div><div className="site-footer__status"><span>CONTRACT</span><strong>TBA — address pending</strong><small>Crypto assets are volatile. Do your own research.</small></div></div><div className="container site-footer__bottom"><span>© ZORQ / COMMUNITY-LED PROJECT</span><span>FACTS PENDING WHERE NOT YET PUBLISHED</span></div></footer>
+      <footer className="site-footer"><div className="container site-footer__inner"><div className="site-footer__brand"><a className="brand-lockup" href="#top"><ZorqMark compact /><span className="brand-lockup__word">ZORQ<span className="brand-lockup__dot">.</span></span></a><p>ZORQ. THE MEME HAS LANDED.</p></div><div className="site-footer__nav"><span>NAVIGATE</span><a href="#about">About</a><a href="#tokenomics">Tokenomics</a><a href="#arc">ARC</a><a href="#faq">FAQ</a></div><div className="site-footer__nav"><span>CONNECT</span><a href="#community">Discord / TBA</a><a href="#community">Telegram / TBA</a><a href="#community">X / TBA</a><a href="#community">Community / TBA</a></div><div className="site-footer__status"><span>CONTRACT</span><strong>TBA — address pending</strong><small>Crypto assets are volatile. Do your own research.</small></div></div><div className="container site-footer__bottom"><span>© ZORQ / COMMUNITY-LED PROJECT</span><span>FACTS PENDING WHERE NOT YET PUBLISHED</span></div></footer>
     </div>
   );
 }
