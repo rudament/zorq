@@ -316,7 +316,12 @@ function Home() {
                 enough to make noise.
               </p>
               <div className="hero-actions">
-                <a className="button button--primary" href="#tokenomics">
+                <a
+                  className="button button--primary"
+                  href="https://tollylabs.com/token/0xb428d8cbbeeb43bd0688ceb01ef453c8a0b47d30"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   Get Zorq <ArrowDownRight size={17} />
                 </a>
                 <a className="button button--secondary" href="#community">
