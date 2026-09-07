@@ -132,6 +132,7 @@ function Home() {
   const [openFaq, setOpenFaq] = useState(0);
   const [contractCopied, setContractCopied] = useState(false);
   const [donationCopied, setDonationCopied] = useState(false);
+  const [activeSection, setActiveSection] = useState("top");
   const pointerFrame = useRef<number | null>(null);
 
   useEffect(() => {
@@ -169,15 +170,31 @@ function Home() {
       { threshold: 0.12, rootMargin: "0px 0px -48px 0px" }
     );
 
+    const activeObserver = new IntersectionObserver(
+      entries => {
+        entries
+          .filter(entry => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)
+          .slice(0, 1)
+          .forEach(entry => setActiveSection(entry.target.id));
+      },
+      { threshold: [0.2, 0.45, 0.7], rootMargin: "-18% 0px -58% 0px" }
+    );
+
     document
       .querySelectorAll("[data-reveal]")
       .forEach(element => revealObserver.observe(element));
+    navItems.forEach(item => {
+      const section = document.querySelector(item.href);
+      if (section) activeObserver.observe(section);
+    });
 
     return () => {
       window.cancelAnimationFrame(frame);
       window.removeEventListener("scroll", onScroll);
       document.documentElement.style.removeProperty("--zorq-scroll-shift");
       revealObserver.disconnect();
+      activeObserver.disconnect();
     };
   }, []);
 
@@ -246,7 +263,14 @@ function Home() {
             aria-label="Primary navigation"
           >
             {navItems.map(item => (
-              <a key={item.href} href={item.href} onClick={closeMenu}>
+              <a
+                className={
+                  activeSection === item.href.slice(1) ? "is-active" : undefined
+                }
+                key={item.href}
+                href={item.href}
+                onClick={closeMenu}
+              >
                 {item.label}
               </a>
             ))}
@@ -312,7 +336,11 @@ function Home() {
                     {SHORT_ZORQ_CONTRACT}
                   </div>
                   <button
-                    className="contract-control__copy"
+                    className={
+                      contractCopied
+                        ? "contract-control__copy is-copied"
+                        : "contract-control__copy"
+                    }
                     type="button"
                     onClick={copyContractAddress}
                     aria-label="Copy full Zorq contract address"
@@ -551,7 +579,11 @@ function Home() {
                 </span>
                 <strong>{SHORT_ZORQ_DONATION}</strong>
                 <button
-                  className="button button--secondary donation-address__button"
+                  className={
+                    donationCopied
+                      ? "button button--secondary donation-address__button is-copied"
+                      : "button button--secondary donation-address__button"
+                  }
                   type="button"
                   onClick={copyDonationAddress}
                   aria-label="Copy full EVM donation address"
@@ -696,7 +728,11 @@ function Home() {
             <span>CONTRACT</span>
             <strong>{SHORT_ZORQ_CONTRACT}</strong>
             <button
-              className="footer-contract-copy"
+              className={
+                contractCopied
+                  ? "footer-contract-copy is-copied"
+                  : "footer-contract-copy"
+              }
               type="button"
               onClick={copyContractAddress}
               aria-label="Copy full Zorq contract address"

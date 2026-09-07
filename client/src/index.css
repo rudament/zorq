@@ -69,6 +69,9 @@ html {
   scroll-behavior: smooth;
   background: var(--ink-950);
 }
+section[id] {
+  scroll-margin-top: 92px;
+}
 body {
   margin: 0;
   min-width: 320px;
@@ -308,6 +311,7 @@ button {
   margin-left: auto;
 }
 .site-nav__links > a:not(.nav-cta) {
+  position: relative;
   color: var(--slate-400);
   font-family: var(--font-mono);
   font-size: 10px;
@@ -315,8 +319,29 @@ button {
   text-transform: uppercase;
   transition: color 0.2s ease;
 }
+.site-nav__links > a:not(.nav-cta)::after {
+  position: absolute;
+  right: 0;
+  bottom: -8px;
+  left: 0;
+  height: 1px;
+  background: var(--arc-cyan);
+  box-shadow: 0 0 10px rgba(125, 231, 255, 0.75);
+  content: "";
+  transform: scaleX(0);
+  transform-origin: right center;
+  transition: transform 0.24s var(--ease-out);
+}
 .site-nav__links > a:not(.nav-cta):hover {
   color: var(--mist-100);
+}
+.site-nav__links > a:not(.nav-cta).is-active {
+  color: var(--mist-100);
+}
+.site-nav__links > a:not(.nav-cta).is-active::after,
+.site-nav__links > a:not(.nav-cta):hover::after {
+  transform: scaleX(1);
+  transform-origin: left center;
 }
 .nav-cta {
   display: inline-flex;
@@ -496,6 +521,11 @@ button {
 .contract-control__copy:focus-visible {
   color: var(--arc-cyan);
 }
+.contract-control__copy.is-copied,
+.footer-contract-copy.is-copied {
+  color: var(--signal-lime);
+  animation: copyPop 0.32s var(--ease-out);
+}
 .footer-contract-copy {
   width: fit-content;
   padding: 0;
@@ -611,6 +641,12 @@ button {
   border-color: rgba(125, 231, 255, 0.5);
   background: rgba(125, 231, 255, 0.06);
   transform: translateY(-2px);
+}
+.button.is-copied {
+  border-color: rgba(212, 255, 104, 0.55);
+  color: var(--signal-lime);
+  background: rgba(212, 255, 104, 0.07);
+  animation: copyPop 0.32s var(--ease-out);
 }
 .hero-meta {
   display: flex;
@@ -1066,11 +1102,15 @@ button {
   background: var(--ink-900);
   transition:
     transform 0.35s var(--ease-out),
-    border-color 0.35s var(--ease-out);
+    border-color 0.35s var(--ease-out),
+    box-shadow 0.35s var(--ease-out);
 }
 .why-card:hover {
   transform: translateY(-5px);
   border-color: rgba(125, 231, 255, 0.35);
+  box-shadow:
+    0 16px 40px rgba(0, 0, 0, 0.18),
+    0 0 26px color-mix(in srgb, var(--why-glow), transparent 88%);
 }
 .why-card::before {
   content: "";
@@ -1223,6 +1263,17 @@ button {
   border: 1px solid var(--line);
   border-radius: 14px;
   background: rgba(21, 26, 36, 0.58);
+  transition:
+    transform 0.28s var(--ease-out),
+    border-color 0.28s var(--ease-out),
+    box-shadow 0.28s var(--ease-out);
+}
+.token-field:hover {
+  transform: translateY(-3px);
+  border-color: rgba(125, 231, 255, 0.24);
+  box-shadow:
+    0 12px 28px rgba(0, 0, 0, 0.16),
+    0 0 24px rgba(79, 124, 255, 0.08);
 }
 .token-field span,
 .token-field small {
@@ -1584,12 +1635,16 @@ button {
   transition:
     transform 0.3s var(--ease-out),
     border-color 0.25s ease,
-    background-color 0.25s ease;
+    background-color 0.25s ease,
+    box-shadow 0.3s var(--ease-out);
 }
 .community-card:hover {
   transform: translateY(-4px);
   border-color: rgba(125, 231, 255, 0.35);
   background: rgba(125, 231, 255, 0.05);
+  box-shadow:
+    0 14px 34px rgba(0, 0, 0, 0.16),
+    0 0 24px rgba(125, 231, 255, 0.08);
 }
 .community-card__index {
   align-self: flex-start;
@@ -2038,6 +2093,17 @@ button {
   to {
     transform: translate3d(5px, -9px, 0);
     opacity: 1;
+  }
+}
+@keyframes copyPop {
+  0% {
+    transform: scale(0.96);
+  }
+  65% {
+    transform: scale(1.04);
+  }
+  100% {
+    transform: scale(1);
   }
 }
 
