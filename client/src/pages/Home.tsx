@@ -1,5 +1,5 @@
 import { ArrowDownRight, ArrowUpRight, Menu, MoveUpRight, X } from "lucide-react";
-import { useEffect, useState, type ReactNode } from "react";
+import { useEffect, useState, type CSSProperties, type PointerEvent, type ReactNode } from "react";
 
 const navItems = [
   { label: "Foundation", href: "#foundation" },
@@ -51,9 +51,15 @@ function SectionHeading({ eyebrow, title, copy }: { eyebrow: string; title: Reac
 function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [scrollY, setScrollY] = useState(0);
+  const [pointer, setPointer] = useState({ x: 0, y: 0 });
+  const [copied, setCopied] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
+    const onScroll = () => {
+      setScrolled(window.scrollY > 24);
+      setScrollY(window.scrollY);
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
 
@@ -78,6 +84,18 @@ function Home() {
   }, []);
 
   const closeMenu = () => setMenuOpen(false);
+  const handleHeroPointerMove = (event: PointerEvent<HTMLElement>) => {
+    const rect = event.currentTarget.getBoundingClientRect();
+    setPointer({ x: ((event.clientX - rect.left) / rect.width - 0.5) * 2, y: ((event.clientY - rect.top) / rect.height - 0.5) * 2 });
+  };
+  const handleHeroPointerLeave = () => setPointer({ x: 0, y: 0 });
+  const copyContract = async () => {
+    if (typeof navigator !== "undefined" && navigator.clipboard) {
+      await navigator.clipboard.writeText("Contract address pending");
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 1600);
+    }
+  };
 
   return (
     <div className="site-shell">
@@ -109,7 +127,7 @@ function Home() {
       </header>
 
       <main id="top">
-        <section className="hero-section">
+        <section className="hero-section" onPointerMove={handleHeroPointerMove} onPointerLeave={handleHeroPointerLeave}>
           <div className="container hero-grid">
             <div className="hero-copy" data-reveal data-visible="true">
               <p className="eyebrow hero-eyebrow"><span className="eyebrow__dot" />ARC / MEME TOKEN <span className="eyebrow__line" /> VISUAL FOUNDATION</p>
@@ -119,6 +137,14 @@ function Home() {
                 <a className="button button--primary" href="#foundation">Explore the system <ArrowDownRight size={17} /></a>
                 <a className="button button--secondary" href="#motion">See the motion <ArrowUpRight size={17} /></a>
               </div>
+              <div className="hero-utility-row">
+                <div className="contract-control" aria-label="Contract address placeholder">
+                  <div className="contract-control__label"><span className="contract-control__dot" />CONTRACT ADDRESS</div>
+                  <div className="contract-control__value">TBA — address pending</div>
+                  <button className="contract-control__copy" type="button" onClick={copyContract} disabled aria-label="Copy contract address placeholder" title="Contract address pending">{copied ? "COPIED" : "COPY"}</button>
+                </div>
+                <div className="arc-badge" aria-label="ARC blockchain badge"><span className="arc-badge__mark">A</span><span><strong>ARC</strong><small>BLOCKCHAIN</small></span></div>
+              </div>
               <div className="hero-meta">
                 <span className="status-chip"><span className="status-chip__dot" />SYSTEM PREVIEW</span>
                 <span className="hero-meta__divider" />
@@ -126,7 +152,7 @@ function Home() {
               </div>
             </div>
 
-            <div className="hero-visual" data-reveal data-visible="true" aria-label="Zorq orbital signal visual">
+            <div className="hero-visual" data-reveal data-visible="true" aria-label="Zorq orbital signal visual" style={{ "--pointer-x": `${pointer.x * 7}px`, "--pointer-y": `${pointer.y * 7 - Math.min(scrollY * 0.035, 16)}px` } as CSSProperties}>
               <div className="hero-visual__halo" />
               <div className="hero-visual__orbit hero-visual__orbit--outer" />
               <div className="hero-visual__orbit hero-visual__orbit--inner" />
@@ -140,6 +166,9 @@ function Home() {
                 </div>
                 <div className="signal-creature__ring signal-creature__ring--front" />
               </div>
+              <span className="hero-particle hero-particle--one" />
+              <span className="hero-particle hero-particle--two" />
+              <span className="hero-particle hero-particle--three" />
               <div className="hero-visual__label hero-visual__label--top"><span />ZORQ / 001</div>
               <div className="hero-visual__label hero-visual__label--bottom">ORBITAL SIGNAL <span>ARC</span></div>
             </div>
